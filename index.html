@@ -1,0 +1,1574 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Ujian Bahasa Indonesia Kelas 8 - Muhammad Naufal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Lora -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- html2pdf.js untuk export bukti PDF yang rapi dan sesuai tema -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .font-serif-literasi {
+            font-family: 'Lora', serif;
+        }
+        /* Custom subtle geometric pattern */
+        .bg-theme-pattern {
+            background-color: #0f172a;
+            background-image: radial-gradient(#10b981 0.75px, transparent 0.75px), radial-gradient(#334155 0.75px, #0f172a 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+        .card-glass {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+        /* Animasi halus */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header Dekoratif & Info -->
+    <header class="bg-theme-pattern text-white shadow-lg border-b-4 border-emerald-500 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 py-6 sm:py-8 relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4 text-center sm:text-left">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 shrink-0 mx-auto sm:mx-0">
+                    <i data-lucide="book-open-check" class="w-7 h-7 sm:w-8 sm:h-8"></i>
+                </div>
+                <div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-1">
+                        Evaluasi Pembelajaran Kurikulum Merdeka
+                    </span>
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+                        Latihan Ujian Bahasa Indonesia Kelas 8
+                    </h1>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-0.5 font-medium">
+                        Disusun oleh <span class="text-emerald-400 font-semibold">Muhammad Naufal</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Live Timer Badge (Muncul saat ujian berlangsung) -->
+            <div id="timer-container" class="hidden bg-slate-800/90 border border-slate-700 px-4 py-2.5 rounded-2xl flex items-center gap-3 shadow-inner">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                <div>
+                    <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Sisa Waktu</div>
+                    <div id="timer-display" class="text-lg sm:text-xl font-mono font-bold text-emerald-400">02:15:00</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Custom Modal Notification (Pengganti alert/confirm) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/75 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-fade-in">
+            <div id="modal-icon" class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"></div>
+            <h3 id="modal-title" class="text-lg font-bold text-center text-slate-900 mb-2"></h3>
+            <p id="modal-message" class="text-sm text-slate-600 text-center mb-6 leading-relaxed"></p>
+            <div id="modal-actions" class="flex gap-3 justify-center"></div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-6 sm:py-10">
+
+        <!-- ========================================== -->
+        <!-- HALAMAN 1: FORMULIR IDENTITAS PESERTA      -->
+        <!-- ========================================== -->
+        <section id="login-section" class="max-w-2xl mx-auto animate-fade-in">
+            <div class="card-glass rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
+                <div class="bg-slate-900 px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="user-check" class="w-5 h-5 text-emerald-400"></i>
+                            Identitas Peserta Ujian
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Lengkapi data diri Anda dengan benar sebelum memulai.</p>
+                    </div>
+                    <span class="text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full">
+                        45 Soal Pilihan Ganda
+                    </span>
+                </div>
+
+                <form id="student-form" class="p-6 sm:p-8 space-y-5">
+                    <!-- Info Waktu & Aturan -->
+                    <div class="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-4 space-y-2.5">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <div class="text-xs sm:text-sm text-slate-700">
+                                <span class="font-bold text-emerald-900">Waktu Pengerjaan:</span> 2 Jam 15 Menit (<span class="font-semibold">135 Menit</span>).
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                            <div class="text-xs sm:text-sm text-slate-700">
+                                <span class="font-bold text-amber-900">Sistem Anti-Kecurangan Aktif:</span> Dilarang berpindah tab/aplikasi atau menekan lama teks soal untuk menyalin/mencari jawaban. Pelanggaran terdeteksi otomatis dan mengurangi nilai akhir sebesar <span class="font-bold text-rose-600">12 poin</span>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Nama Lengkap -->
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Lengkap *</label>
+                            <input type="text" id="input-nama" required placeholder="Contoh: Ahmad Rizky Pratama"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition text-sm font-medium bg-slate-50 focus:bg-white">
+                        </div>
+
+                        <!-- Kelas -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Kelas *</label>
+                            <input type="text" id="input-kelas" required placeholder="Contoh: VIII-A / 8B"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition text-sm font-medium bg-slate-50 focus:bg-white">
+                        </div>
+
+                        <!-- Nomor Absen -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nomor Absen *</label>
+                            <input type="number" id="input-absen" required min="1" max="60" placeholder="Contoh: 14"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition text-sm font-medium bg-slate-50 focus:bg-white">
+                        </div>
+
+                        <!-- Asal Sekolah -->
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Sekolah *</label>
+                            <input type="text" id="input-sekolah" required placeholder="Contoh: SMP Negeri 1 Nusantara"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition text-sm font-medium bg-slate-50 focus:bg-white">
+                        </div>
+
+                        <!-- Pemilihan Tanggal via Dropdown / Date Picker Login Style -->
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tanggal Ujian (Pilih dari Kalender) *</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <select id="select-hari" required class="px-3 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none text-sm font-medium bg-slate-50 cursor-pointer">
+                                    <option value="">Tanggal</option>
+                                </select>
+                                <select id="select-bulan" required class="px-3 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none text-sm font-medium bg-slate-50 cursor-pointer">
+                                    <option value="">Bulan</option>
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Maret">Maret</option>
+                                    <option value="April">April</option>
+                                    <option value="Mei">Mei</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Agustus">Agustus</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="Desember">Desember</option>
+                                </select>
+                                <select id="select-tahun" required class="px-3 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none text-sm font-medium bg-slate-50 cursor-pointer">
+                                    <option value="">Tahun</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
+                            <span>Mulai Mengerjakan Ujian</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- HALAMAN 2: AREA PENGERJAAN 45 SOAL         -->
+        <!-- ========================================== -->
+        <section id="exam-section" class="hidden space-y-6 animate-fade-in">
+            <!-- Status Bar Peserta & Navigasi Cepat -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-bold text-sm" id="avatar-initials">
+                        MN
+                    </div>
+                    <div>
+                        <div class="font-bold text-slate-900 text-sm" id="display-student-name">-</div>
+                        <div class="text-xs text-slate-500" id="display-student-meta">-</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <div class="text-xs text-slate-500 font-medium">Terjawab</div>
+                        <div class="text-sm font-bold text-emerald-600"><span id="answered-count">0</span> / 45 Soal</div>
+                    </div>
+                    <button type="button" onclick="toggleNavGrid()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer">
+                        <i data-lucide="grid" class="w-4 h-4"></i>
+                        <span>Daftar Soal</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel Navigasi Nomor Soal (Collapsible) -->
+            <div id="nav-grid-panel" class="hidden bg-white rounded-2xl p-5 shadow-md border border-slate-200">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Navigasi Nomor Soal</span>
+                    <div class="flex items-center gap-3 text-xs">
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> Sudah</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-slate-200 inline-block"></span> Belum</span>
+                    </div>
+                </div>
+                <div id="question-nav-buttons" class="grid grid-cols-5 sm:grid-cols-9 md:grid-cols-15 gap-2"></div>
+            </div>
+
+            <!-- Container Kartu Soal Utama -->
+            <div id="question-card" class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden">
+                <!-- Header Soal -->
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-900 text-white text-xs font-bold">
+                        Soal Nomor <span id="current-q-number" class="text-emerald-400">1</span> dari 45
+                    </span>
+                    <span id="current-q-topic" class="text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                        Materi
+                    </span>
+                </div>
+
+                <!-- Isi Bacaan (Jika soal literasi memiliki teks) & Pertanyaan -->
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Kotak Wacana Literasi -->
+                    <div id="reading-passage-box" class="hidden bg-amber-50/60 border-l-4 border-amber-500 rounded-r-2xl p-5 space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800">
+                            <i data-lucide="book-open" class="w-4 h-4"></i>
+                            <span>Bacalah teks berikut dengan saksama!</span>
+                        </div>
+                        <p id="reading-passage-text" class="font-serif-literasi text-slate-800 text-sm sm:text-base leading-relaxed whitespace-pre-line"></p>
+                    </div>
+
+                    <!-- Teks Pertanyaan -->
+                    <div id="question-text" class="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed"></div>
+
+                    <!-- Opsi Jawaban A, B, C, D -->
+                    <div id="options-container" class="space-y-3 pt-2"></div>
+                </div>
+
+                <!-- Footer Navigasi Next / Prev / Selesai -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between gap-3">
+                    <button type="button" id="btn-prev" onclick="prevQuestion()" class="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-semibold text-sm flex items-center gap-1.5 disabled:opacity-40 disabled:pointer-events-none transition cursor-pointer">
+                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+
+                    <button type="button" id="btn-next" onclick="nextQuestion()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm flex items-center gap-1.5 transition cursor-pointer">
+                        <span>Selanjutnya</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+
+                    <button type="button" id="btn-finish" onclick="confirmFinishExam()" class="hidden px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 flex items-center gap-2 transition cursor-pointer">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        <span>Selesai & Kumpulkan</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- HALAMAN 3: HASIL UJIAN, SALIN WA & PDF     -->
+        <!-- ========================================== -->
+        <section id="result-section" class="hidden max-w-3xl mx-auto space-y-6 animate-fade-in">
+            
+            <!-- Kartu Ringkasan & Sertifikat Bukti (Akan dijadikan PDF) -->
+            <div id="pdf-certificate-area" class="bg-white rounded-3xl shadow-xl border-2 border-slate-800 overflow-hidden relative">
+                <!-- Dekorasi Header PDF yang selaras dengan tema ujian -->
+                <div class="bg-theme-pattern text-white p-6 sm:p-8 border-b-4 border-emerald-500">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold mb-2">
+                                <span>BUKTI HASIL EVALUASI BELAJAR</span>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">Latihan Ujian Bahasa Indonesia Kelas 8</h2>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">Penyusun Soal: <span class="text-emerald-400 font-semibold">Muhammad Naufal</span></p>
+                        </div>
+                        <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-4 text-center min-w-[130px]">
+                            <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">Skor Akhir</div>
+                            <div id="res-final-score" class="text-4xl font-extrabold text-emerald-400 mt-0.5">0</div>
+                            <div class="text-[11px] text-slate-400 mt-0.5">dari 100 Poin</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Identitas & Statistik -->
+                <div class="p-6 sm:p-8 space-y-6 bg-white">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="text-xs text-slate-500 block">Nama Lengkap</span>
+                            <span id="res-nama" class="font-bold text-slate-900 text-base">-</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="text-xs text-slate-500 block">Kelas / Nomor Absen</span>
+                            <span id="res-kelas-absen" class="font-bold text-slate-900 text-base">-</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="text-xs text-slate-500 block">Asal Sekolah</span>
+                            <span id="res-sekolah" class="font-bold text-slate-900 text-base">-</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                            <span class="text-xs text-slate-500 block">Tanggal & Durasi Pengerjaan</span>
+                            <span id="res-tanggal-waktu" class="font-bold text-slate-900 text-sm">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Rincian Jawaban Benar/Salah -->
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                            <div class="text-xs text-emerald-700 font-semibold">Jawaban Benar</div>
+                            <div id="res-benar" class="text-xl font-extrabold text-emerald-700 mt-0.5">0</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-rose-50 border border-rose-200">
+                            <div class="text-xs text-rose-700 font-semibold">Jawaban Salah</div>
+                            <div id="res-salah" class="text-xl font-extrabold text-rose-700 mt-0.5">0</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-100 border border-slate-200">
+                            <div class="text-xs text-slate-600 font-semibold">Skor Murni</div>
+                            <div id="res-skor-murni" class="text-xl font-extrabold text-slate-800 mt-0.5">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Status Kejujuran (Hijau jika Jujur, Merah jika Curang) -->
+                    <div id="res-honesty-box" class="p-4 rounded-2xl border-2">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Status Kejujuran Ujian:</span>
+                            <span id="res-honesty-badge" class="text-sm font-extrabold px-3 py-1 rounded-full"></span>
+                        </div>
+                        <p id="res-honesty-reason" class="text-xs sm:text-sm mt-2 leading-relaxed font-medium"></p>
+                    </div>
+
+                    <!-- Kata-kata Motivasi (Cetak Miring sesuai permintaan) -->
+                    <div class="bg-slate-900 text-slate-200 p-5 rounded-2xl border-l-4 border-emerald-500">
+                        <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">Pesan Motivasi Belajar</div>
+                        <p id="res-motivation" class="italic text-sm sm:text-base leading-relaxed text-slate-100">
+                            "Pendidikan adalah paspor menuju masa depan, karena hari esok dimiliki oleh mereka yang mempersiapkannya hari ini. Teruslah membaca, berlatih, dan menjaga kejujuran dalam setiap proses belajarmu, karena karakter mulia jauh lebih berharga daripada sekadar angka!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi: Salin Teks WhatsApp & Download Bukti PDF -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 space-y-4">
+                <h3 class="text-base font-bold text-slate-900">Kirim & Simpan Laporan Hasil Ujian</h3>
+                <p class="text-xs text-slate-500">Pilih salah satu atau kedua opsi di bawah ini untuk melaporkan hasil latihan ujian Anda kepada guru/penyusun soal.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <button type="button" onclick="copyWhatsAppReport()" class="py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition cursor-pointer">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Salin Teks Laporan (WhatsApp)</span>
+                    </button>
+
+                    <button type="button" onclick="downloadPDFProof()" class="py-3.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-lg shadow-slate-900/20 flex items-center justify-center gap-2 transition cursor-pointer">
+                        <i data-lucide="file-down" class="w-4 h-4 text-emerald-400"></i>
+                        <span>Download Bukti Pengerjaan (PDF)</span>
+                    </button>
+                </div>
+
+                <!-- Preview Teks WhatsApp yang siap disalin -->
+                <div class="pt-2">
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5">Pratinjau Format Laporan WhatsApp:</label>
+                    <textarea id="wa-preview-text" readonly rows="10" class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700 focus:outline-none"></textarea>
+                </div>
+            </div>
+
+            <!-- Pembahasan / Kunci Jawaban (Hanya tampil setelah selesai mengerjakan) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-200 space-y-5">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Evaluasi & Kunci Jawaban</h3>
+                        <p class="text-xs text-slate-500">Periksa kembali jawaban Anda untuk bahan belajar mandiri.</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">45 Soal</span>
+                </div>
+                <div id="review-answers-list" class="space-y-4"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-5 px-4 text-center text-xs border-t border-slate-800">
+        <p>&copy; <span id="footer-year"></span> Latihan Ujian Bahasa Indonesia Kelas 8 &bull; Disusun oleh <span class="text-emerald-400 font-semibold">Muhammad Naufal</span></p>
+    </footer>
+
+    <!-- Hidden textarea untuk fallback salin clipboard -->
+    <textarea id="clipboard-helper" class="fixed -top-96 left-0 opacity-0"></textarea>
+
+    <script>
+        // =========================================================================
+        // 1. BANK 45 SOAL ORISINAL BAHASA INDONESIA KELAS 8 (TANPA GAMBAR + LITERASI)
+        // =========================================================================
+        const questionsData = [
+            // --- MATERI 1: TEKS LAPORAN HASIL OBSERVASI (LHO) [Soal 1-6] ---
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: "Hutan mangrove merupakan ekosistem pesisir yang memiliki peran vital dalam menjaga keseimbangan lingkungan. Berdasarkan pengamatan di pesisir utara Pulau Jawa, akar tunjang pohon bakau mampu meredam energi gelombang laut hingga 70 persen sehingga mencegah abrasi. Selain itu, serasah daun mangrove yang jatuh ke perairan menjadi sumber nutrisi utama bagi biota laut seperti kepiting bakau, udang, dan berbagai jenis ikan kecil.",
+                question: "Informasi utama yang sesuai dengan kutipan teks laporan hasil observasi di atas adalah...",
+                options: [
+                    "Hutan mangrove hanya dapat tumbuh subur di pesisir utara Pulau Jawa.",
+                    "Akar pohon bakau mampu meredam gelombang laut dan serasahnya menjadi nutrisi biota laut.",
+                    "Kepiting bakau dan udang merupakan satu-satunya hewan yang hidup di ekosistem pesisir.",
+                    "Abrasi pantai disebabkan oleh banyaknya daun mangrove yang jatuh ke perairan laut."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: "Kucing domestik (Felis catus) adalah mamalia karnivora berukuran kecil yang telah berinteraksi dengan manusia selama ribuan tahun. Hewan ini memiliki indra pendengaran dan penglihatan malam yang sangat tajam. Pada bagian telapak kakinya terdapat bantalan lembut yang berfungsi meredam suara langkah saat mengintai mangsa.",
+                question: "Dalam struktur teks laporan hasil observasi, paragraf di atas termasuk ke dalam bagian...",
+                options: [
+                    "Deskripsi manfaat",
+                    "Simpulan umum",
+                    "Pernyataan umum atau definisi umum",
+                    "Argumentasi penutup"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: null,
+                question: "Ciri kebahasaan yang paling menonjol dalam teks laporan hasil observasi yang bersifat objektif adalah...",
+                options: [
+                    "Menggunakan kata ganti orang pertama seperti aku dan saya.",
+                    "Banyak menggunakan kalimat perintah dan seruan ajakan.",
+                    "Menggunakan istilah ilmiah dan kata kerja relasional seperti adalah dan merupakan.",
+                    "Memuat majas hiperbola untuk melebih-lebihkan objek pengamatan."
+                ],
+                answer: 2
+            },
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: null,
+                question: "Perhatikan kalimat berikut: 'Komodo merupakan spesies kadal terbesar di dunia yang hanya hidup secara alami di beberapa pulau di Nusa Tenggara Timur.' Kalimat tersebut mengandung unsur kebahasaan berupa...",
+                options: [
+                    "Kalimat definisi",
+                    "Kalimat deskripsi bagian",
+                    "Kalimat persuasif",
+                    "Kalimat imperatif"
+                ],
+                answer: 0
+            },
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: "Lidah buaya (Aloe vera) memiliki daun tebal berdaging dengan tepi bergerigi kecil. Di dalam daunnya terdapat gel bening yang kaya akan vitamin A, C, dan E. Masyarakat sering memanfaatkan gel tersebut untuk meredakan luka bakar ringan serta menjaga kelembapan kulit kepala.",
+                question: "Bagian yang menjelaskan kegunaan objek pada kutipan teks laporan hasil observasi di atas ditunjukkan oleh kalimat...",
+                options: [
+                    "Pertama",
+                    "Kedua",
+                    "Ketiga",
+                    "Pertama dan kedua"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Teks Laporan Hasil Observasi",
+                passage: null,
+                question: "Syarat utama data yang disajikan dalam teks laporan hasil observasi adalah...",
+                options: [
+                    "Berdasarkan imajinasi dan harapan penulis terhadap objek.",
+                    "Berdasarkan fakta lapangan yang dapat dibuktikan kebenarannya secara ilmiah.",
+                    "Berisi opini pribadi pengamat yang bersifat subjektif.",
+                    "Menggunakan bahasa gaul agar mudah dipahami pembaca remaja."
+                ],
+                answer: 1
+            },
+
+            // --- MATERI 2: IKLAN, SLOGAN, DAN POSTER [Soal 7-12] ---
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: null,
+                question: "Perhatikan kalimat berikut: 'Satu Pohon Ditanam, Sejuta Napas Terselamatkan.' Kalimat singkat dan padat yang mengutamakan kekuatan kata-kata untuk membangkitkan kesadaran masyarakat tersebut termasuk jenis...",
+                options: [
+                    "Iklan komersial",
+                    "Slogan lingkungan",
+                    "Pengumuman resmi",
+                    "Berita singkat"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: null,
+                question: "Perbedaan mendasar antara iklan, slogan, dan poster terletak pada unsur pembentuknya. Unsur yang hanya dimiliki oleh iklan audiovisual (seperti di televisi atau media digital) adalah...",
+                options: [
+                    "Kata-kata persuasif yang menarik perhatian",
+                    "Perpaduan gambar dan huruf yang kontras",
+                    "Unsur gerak dan suara yang mendukung pesan",
+                    "Informasi mengenai keunggulan produk"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: "Dapatkan sepatu lari AeroStep dengan bantalan empuk berteknologi tinggi! Ringan dipakai, anti-slip di segala medan, dan diskon khusus 30% selama pekan ini di seluruh gerai resmi.",
+                question: "Berdasarkan isinya, teks iklan di atas termasuk ke dalam jenis iklan...",
+                options: [
+                    "Iklan layanan masyarakat",
+                    "Iklan pemberitahuan",
+                    "Iklan penawaran (niaga)",
+                    "Iklan permintaan lowongan"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: null,
+                question: "Sebuah poster bertuliskan: 'Matikan Keran Air Setelah Digunakan, Setiap Tetes Sangat Berharga!' Tujuan utama dari teks poster layanan masyarakat tersebut adalah...",
+                options: [
+                    "Menjual produk keran air otomatis kepada masyarakat luas.",
+                    "Mengajak masyarakat untuk menghemat penggunaan air bersih dalam kehidupan sehari-hari.",
+                    "Melaporkan jumlah ketersediaan air bersih di wilayah perkotaan.",
+                    "Memberikan sanksi tegas bagi warga yang boros menggunakan air."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: null,
+                question: "Manakah di antara kalimat berikut yang merupakan slogan bertema pendidikan?",
+                options: [
+                    "Belilah buku pelajaran terbaru dengan harga terjangkau di toko kami!",
+                    "Buku adalah jendela dunia, membaca adalah kunci pembukanya.",
+                    "Diberitahukan kepada seluruh siswa bahwa perpustakaan buka pukul 07.30 WIB.",
+                    "Ayo kunjungi pameran buku terbesar tahun ini di gedung serbaguna!"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Iklan, Slogan, dan Poster",
+                passage: null,
+                question: "Bahasa yang digunakan dalam iklan dan poster hendaknya bersifat persuasif, artinya...",
+                options: [
+                    "Memaksa pembaca dengan ancaman hukuman tertentu.",
+                    "Membujuk dan mendorong pembaca agar tertarik mengikuti pesan yang disampaikan.",
+                    "Menjelaskan sejarah berdirinya sebuah perusahaan secara panjang lebar.",
+                    "Menggunakan istilah-istilah asing yang sulit dipahami orang awam."
+                ],
+                answer: 1
+            },
+
+            // --- MATERI 3: GAGASAN POKOK & PARAGRAF DEDUKTIF/INDUKTIF [Soal 13-20] ---
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: "Membaca buku secara rutin memberikan banyak manfaat bagi perkembangan otak remaja. Kebiasaan ini mampu meningkatkan daya konsentrasi serta memperkaya kosakata dalam berkomunikasi. Selain itu, membaca juga melatih kemampuan berpikir kritis dalam menganalisis suatu permasalahan. Oleh karena itu, remaja sangat dianjurkan meluangkan waktu minimal dua puluh menit setiap hari untuk membaca.",
+                question: "Gagasan pokok paragraf di atas adalah...",
+                options: [
+                    "Membaca mampu memperkaya kosakata remaja dalam berkomunikasi.",
+                    "Remaja harus membaca selama dua puluh menit di perpustakaan sekolah.",
+                    "Manfaat rutin membaca buku bagi perkembangan otak remaja.",
+                    "Kemampuan berpikir kritis hanya bisa dilatih melalui membaca buku."
+                ],
+                answer: 2
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: "Setiap pagi sebelum berangkat ke sekolah, Raka selalu merapikan tempat tidurnya sendiri. Setelah itu, ia membantu ibunya menyapu halaman rumah dan menyiram tanaman. Di sekolah pun, Raka tidak pernah terlambat mengumpulkan tugas dari guru. Sungguh, Raka adalah anak yang sangat disiplin dan bertanggung jawab.",
+                question: "Berdasarkan letak kalimat utamanya, paragraf di atas termasuk jenis paragraf...",
+                options: [
+                    "Deduktif",
+                    "Induktif",
+                    "Ineratif",
+                    "Naratif deskriptif"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: "Pencemaran sungai di kawasan perkotaan semakin memprihatinkan akibat perilaku manusia. Banyak warga yang masih membuang sampah rumah tangga langsung ke aliran sungai. Limbah cair dari industri kecil juga kerap dialirkan tanpa melalui proses penyaringan terlebih dahulu. Akibatnya, air sungai menjadi keruh, berbau menyengat, dan ekosistem ikannya punah.",
+                question: "Kalimat utama pada paragraf deduktif di atas terletak pada kalimat...",
+                options: [
+                    "Pertama",
+                    "Kedua",
+                    "Ketiga",
+                    "Keempat"
+                ],
+                answer: 0
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: null,
+                question: "Paragraf yang kalimat utamanya berada di awal paragraf, kemudian diikuti oleh kalimat-kalimat penjelas yang bersifat khusus disebut paragraf...",
+                options: [
+                    "Induktif",
+                    "Deduktif",
+                    "Campuran",
+                    "Persuasif"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: "Bunga melati memiliki aroma harum yang menenangkan pikiran. Bunga mawar dikenal dengan keindahan kelopaknya yang berwarna-warni. Sementara itu, bunga matahari selalu tumbuh menghadap ke arah datangnya sinar matahari. Demikianlah, setiap jenis bunga memiliki keunikan dan daya tarik tersendiri.",
+                question: "Simpulan atau gagasan utama paragraf induktif tersebut adalah...",
+                options: [
+                    "Bunga melati lebih harum daripada bunga mawar dan matahari.",
+                    "Setiap jenis bunga memiliki keunikan dan daya tarik tersendiri.",
+                    "Bunga matahari hanya dapat hidup di daerah yang panas.",
+                    "Kelopak bunga mawar memiliki warna yang paling indah."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: null,
+                question: "Ciri penanda yang sering muncul pada kalimat utama di akhir paragraf induktif adalah penggunaan konjungsi antarkalimat seperti...",
+                options: [
+                    "Misalnya, contohnya, dan antara lain",
+                    "Oleh karena itu, dengan demikian, dan jadi",
+                    "Pertama-tama, selanjutnya, dan kemudian",
+                    "Meskipun demikian, namun, dan akan tetapi"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: "Olahraga bersepeda kini semakin digemari oleh berbagai kalangan masyarakat. Selain menyehatkan jantung dan melatih otot kaki, bersepeda juga ramah lingkungan karena tidak menghasilkan emisi gas buang. Biaya perawatannya pun jauh lebih hemat dibandingkan kendaraan bermotor.",
+                question: "Kalimat penjelas yang tidak padu jika ditambahkan ke dalam paragraf di atas adalah...",
+                options: [
+                    "Banyak komunitas sepeda yang rutin mengadakan kegiatan bersepeda bersama di akhir pekan.",
+                    "Bersepeda di pagi hari juga membantu tubuh mendapatkan asupan vitamin D dari sinar matahari.",
+                    "Harga sepeda motor keluaran terbaru mengalami kenaikan cukup signifikan tahun ini.",
+                    "Jalur khusus sepeda mulai dibangun di beberapa ruas jalan utama perkotaan."
+                ],
+                answer: 2
+            },
+            {
+                topic: "Gagasan Pokok & Deduktif/Induktif",
+                passage: null,
+                question: "Hubungan antara gagasan pokok dan gagasan pendukung dalam sebuah paragraf yang baik adalah...",
+                options: [
+                    "Gagasan pendukung berfungsi menjelaskan, merinci, atau membuktikan gagasan pokok.",
+                    "Gagasan pokok selalu lebih panjang daripada seluruh gagasan pendukung.",
+                    "Gagasan pendukung tidak harus berkaitan dengan topik yang dibahas.",
+                    "Dalam satu paragraf boleh terdapat tiga gagasan pokok yang berbeda."
+                ],
+                answer: 0
+            },
+
+            // --- MATERI 4: ARTIKEL ILMIAH POPULER [Soal 21-26] ---
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: "Tidur yang cukup bukan sekadar mengistirahatkan tubuh yang lelah setelah beraktivitas seharian. Secara neurologis, saat kita tertidur pulas, otak melakukan proses konsolidasi memori atau pemilahan informasi penting yang dipelajari sepanjang hari. Remaja usia 13 hingga 18 tahun idealnya membutuhkan waktu tidur selama 8 hingga 10 jam setiap malam agar konsentrasi belajar di sekolah tetap optimal.",
+                question: "Mengapa kutipan teks di atas dikategorikan sebagai artikel ilmiah populer?",
+                options: [
+                    "Karena berisi cerita khayalan tentang mimpi seorang remaja di malam hari.",
+                    "Karena menyajikan fakta ilmiah tentang kerja otak saat tidur dengan bahasa yang ringan dan mudah dipahami masyarakat umum.",
+                    "Karena menggunakan rumus-rumus kedokteran yang hanya dimengerti oleh dokter spesialis.",
+                    "Karena bertujuan mempromosikan obat tidur herbal kepada para pelajar."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: null,
+                question: "Perbedaan utama antara artikel ilmiah murni (jurnal akademik) dengan artikel ilmiah populer terletak pada...",
+                options: [
+                    "Kebenaran data yang disajikan di dalamnya.",
+                    "Gaya bahasa dan sasaran pembacanya; artikel ilmiah populer menggunakan bahasa komunikatif untuk khalayak umum.",
+                    "Sumber penelitian yang digunakan oleh penulis.",
+                    "Kewajiban mencantumkan fakta di dalam tulisan."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: "Penggunaan gawai secara berlebihan menjelang waktu tidur dapat mengganggu ritme sirkadian tubuh. Cahaya biru (blue light) yang dipancarkan layar ponsel menghambat produksi hormon melatonin, yakni hormon yang memberi sinyal kepada tubuh bahwa sudah waktunya beristirahat.",
+                question: "Berdasarkan artikel ilmiah populer di atas, fungsi hormon melatonin bagi tubuh manusia adalah...",
+                options: [
+                    "Menyerap cahaya biru yang dipancarkan oleh layar ponsel.",
+                    "Meningkatkan energi tubuh agar tetap terjaga sepanjang malam.",
+                    "Memberi sinyal alami kepada tubuh bahwa sudah waktunya beristirahat.",
+                    "Mempercepat kerja mata saat menatap layar gawai dalam gelap."
+                ],
+                answer: 2
+            },
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: null,
+                question: "Dalam menulis artikel ilmiah populer, penulis sering menggunakan analogi atau perumpamaan. Tujuan penggunaan analogi tersebut adalah...",
+                options: [
+                    "Memperpanjang jumlah halaman agar tulisan terlihat tebal.",
+                    "Memudahkan pembaca memahami konsep ilmiah yang rumit melalui perbandingan hal sehari-hari.",
+                    "Mengalihkan perhatian pembaca dari data penelitian yang kurang akurat.",
+                    "Menunjukkan bahwa penulis menguasai banyak kosakata sastra kuno."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: "1) Sampah plastik membutuhkan waktu ratusan tahun untuk terurai secara alami di dalam tanah. 2) Menurut data Kementerian Lingkungan Hidup, timbunan sampah plastik di kota besar meningkat setiap tahunnya. 3) Sudah seharusnya masyarakat beralih menggunakan tas belanja kain yang lebih ramah lingkungan. 4) Penggunaan botol minum isi ulang juga menjadi langkah cerdas mengurangi limbah sekali pakai.",
+                question: "Kalimat yang merupakan fakta dalam kutipan artikel ilmiah populer di atas ditunjukkan oleh nomor...",
+                options: [
+                    "1) dan 2)",
+                    "1) dan 3)",
+                    "2) dan 4)",
+                    "3) dan 4)"
+                ],
+                answer: 0
+            },
+            {
+                topic: "Artikel Ilmiah Populer",
+                passage: null,
+                question: "Cara paling efektif yang dilakukan penulis artikel ilmiah populer untuk meyakinkan pembaca terhadap pendapatnya adalah dengan menyertakan...",
+                options: [
+                    "Cerita fiksi pengalaman pribadi yang mengharukan.",
+                    "Data statistik, hasil riset terkini, dan pendapat para ahli.",
+                    "Kalimat sindiran kepada pihak yang tidak setuju.",
+                    "Janji-janji keuntungan materi bagi para pembaca."
+                ],
+                answer: 1
+            },
+
+            // --- MATERI 5: UNSUR INTRINSIK CERITA & KARYA FIKSI [Soal 27-37] ---
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "Langit senja di pelabuhan kecil itu memerah saga. Angin laut berembus kencang menerbangkan ujung kerudung Sari yang masih berdiri mematung di dermaga kayu. Sudah tiga jam ia menanti kapal nelayan ayahnya merapat, namun di cakrawala hanya tampak gulungan ombak kelabu yang kian meninggi.",
+                question: "Latar tempat dan waktu yang tergambar jelas dalam kutipan cerita fiksi di atas adalah...",
+                options: [
+                    "Di atas kapal nelayan pada pagi hari",
+                    "Di dermaga pelabuhan kecil pada waktu senja",
+                    "Di tepi pantai berpasir putih pada tengah malam",
+                    "Di pasar ikan tradisional pada siang hari"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "'Sudahlah, Danu! Tidak perlu kita laporkan dompet yang kita temukan di lapangan ini ke guru piket. Toh tidak ada yang melihat kita mengambilnya,' bisik Bima sambil melirik ke kanan dan ke kiri. Danu menggeleng tegas, 'Tidak, Bim. Pemiliknya pasti sedang kebingungan mencarinya. Kita harus segera menyerahkannya ke ruang guru sekarang juga!'",
+                question: "Watak tokoh Danu berdasarkan kutipan dialog tersebut adalah...",
+                options: [
+                    "Penakut dan mudah dipengaruhi teman",
+                    "Jujur dan memiliki kepedulian tinggi",
+                    "Ceroboh dan suka mencampuri urusan orang lain",
+                    "Sombong dan merasa paling benar sendiri"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: null,
+                question: "Sudut pandang penceritaan di mana pengarang berada di luar cerita dan menyebut tokoh-tokohnya dengan kata ganti 'ia', 'dia', atau nama tokoh secara langsung serta mengetahui segala pikiran tokoh disebut...",
+                options: [
+                    "Sudut pandang orang pertama pelaku utama",
+                    "Sudut pandang orang pertama pelaku sampingan",
+                    "Sudut pandang orang ketiga serba tahu",
+                    "Sudut pandang campuran"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "Meskipun berasal dari keluarga sederhana, Tari tidak pernah berkecil hati. Setiap pulang sekolah, ia membantu orang tuanya berjualan kue keliling kampung sebelum belajar di malam hari. Berkat ketekunan dan doa yang tak pernah putus, Tari berhasil meraih juara pertama olimpiade sains tingkat nasional.",
+                question: "Amanat yang dapat dipetik dari kutipan karya fiksi di atas adalah...",
+                options: [
+                    "Berjualan kue keliling kampung lebih penting daripada belajar di sekolah.",
+                    "Keterbatasan ekonomi bukanlah penghalang untuk meraih prestasi jika disertai kerja keras dan ketekunan.",
+                    "Hanya siswa yang berasal dari desa yang mampu menjuarai olimpiade sains.",
+                    "Kita harus selalu membantu orang tua agar dipuji oleh tetangga sekitar."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: null,
+                question: "Rangkaian peristiwa yang saling berhubungan secara sebab-akibat dari awal pengenalan masalah, puncak konflik (klimaks), hingga penyelesaian dalam sebuah karya fiksi disebut...",
+                options: [
+                    "Tema cerita",
+                    "Alur atau plot",
+                    "Gaya bahasa",
+                    "Latar suasana"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "Aku melangkah gontai memasuki ruang kelas yang masih sepi. Kertas hasil ulangan matematika di tanganku terasa begitu berat. Nilai merah yang tertera di pojok kanan atas seakan mengejek kemalasanku selama seminggu terakhir yang kuhabiskan hanya untuk bermain gim.",
+                question: "Sudut pandang yang digunakan pengarang dalam kutipan cerpen di atas adalah...",
+                options: [
+                    "Orang pertama pelaku utama",
+                    "Orang kedua pengamat",
+                    "Orang ketiga terbatas",
+                    "Orang ketiga serba tahu"
+                ],
+                answer: 0
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: null,
+                question: "Perbedaan mendasar antara karya fiksi (seperti cerpen dan novel) dengan karya nonfiksi (seperti biografi dan teks LHO) adalah...",
+                options: [
+                    "Karya fiksi ditulis menggunakan bahasa baku, sedangkan nonfiksi menggunakan bahasa daerah.",
+                    "Karya fiksi bersumber dari imajinasi/rekaan pengarang, sedangkan nonfiksi berdasarkan fakta dan kenyataan.",
+                    "Karya fiksi tidak memiliki pesan moral, sedangkan nonfiksi selalu memiliki amanat.",
+                    "Karya fiksi tidak memiliki struktur penulisan, sedangkan nonfiksi memiliki struktur baku."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "Suara detak jam dinding terdengar begitu nyaring di ruang tunggu rumah sakit yang sunyi. Tanganku dingin menggenggam tasbih, sementara ibu terus menyeka air mata yang jatuh di pipinya menunggu dokter keluar dari ruang operasi.",
+                question: "Latar suasana yang tergambar dalam kutipan cerita di atas adalah...",
+                options: [
+                    "Meriah dan penuh sukacita",
+                    "Cemas, tegang, dan mengharukan",
+                    "Santai dan menyenangkan",
+                    "Marah dan penuh kebencian"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: null,
+                question: "Tokoh yang berperan sebagai penentang tokoh utama dan sering memicu timbulnya konflik dalam sebuah cerita fiksi disebut tokoh...",
+                options: [
+                    "Protagonis",
+                    "Antagonis",
+                    "Tritagonis",
+                    "Figuran"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: "Pagi itu Dika teringat kembali kejadian lima tahun lalu saat ia pertama kali pindah ke kota ini. Dulu, jalanan di depan kompleks rumahnya masih berupa tanah berbatu yang becek setiap kali hujan turun.",
+                question: "Jenis alur yang digunakan dalam kutipan cerita di atas adalah alur...",
+                options: [
+                    "Maju (progresif)",
+                    "Mundur (sorot balik/flashback)",
+                    "Melompat-lompat",
+                    "Sirkuler"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Unsur Intrinsik & Karya Fiksi",
+                passage: null,
+                question: "Gagasan dasar atau pokok persoalan yang menjiwai keseluruhan isi cerita dalam karya fiksi disebut...",
+                options: [
+                    "Judul",
+                    "Tema",
+                    "Penokohan",
+                    "Sinopsis"
+                ],
+                answer: 1
+            },
+
+            // --- MATERI 6: KALIMAT AKTIF DAN KALIMAT PASIF [Soal 38-45] ---
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Perhatikan kalimat berikut: 'Para siswa kelas VIII menanam ratusan bibit pohon mangga di halaman belakang sekolah.' Jika diubah menjadi kalimat pasif yang tepat, bentuknya adalah...",
+                options: [
+                    "Ratusan bibit pohon mangga ditanam oleh para siswa kelas VIII di halaman belakang sekolah.",
+                    "Di halaman belakang sekolah para siswa kelas VIII bertanam ratusan bibit pohon mangga.",
+                    "Ratusan bibit pohon mangga tertanam sendiri di halaman belakang sekolah.",
+                    "Para siswa kelas VIII ditanami ratusan bibit pohon mangga di halaman belakang sekolah."
+                ],
+                answer: 0
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Manakah di antara kalimat berikut yang merupakan kalimat aktif transitif (memerlukan objek)?",
+                options: [
+                    "Adik menangis tersedu-sedu di ruang tamu.",
+                    "Ayah membaca surat kabar di teras rumah setiap pagi.",
+                    "Burung-burung berkicau merdu di atas dahan pohon.",
+                    "Nenek berjalan perlahan menuju taman bunga."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Ciri utama kata kerja (predikat) pada kalimat pasif dalam bahasa Indonesia umumnya diawali dengan imbuhan...",
+                options: [
+                    "meN- atau ber-",
+                    "di-, ter-, atau ke-an",
+                    "peN- atau -wan",
+                    "se- atau memper-"
+                ],
+                answer: 1
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Perhatikan kalimat pasif berikut: 'Buku antologi puisi karya siswa SMPN 1 Nusantara itu telah saya baca kemarin sore.' Bentuk kalimat aktif yang paling tepat dari kalimat tersebut adalah...",
+                options: [
+                    "Kemarin sore buku antologi puisi karya siswa SMPN 1 Nusantara dibaca oleh saya.",
+                    "Saya telah membaca buku antologi puisi karya siswa SMPN 1 Nusantara itu kemarin sore.",
+                    "Buku antologi puisi itu membacakan karya siswa SMPN 1 Nusantara kemarin sore.",
+                    "Saya terbaca buku antologi puisi karya siswa SMPN 1 Nusantara itu kemarin sore."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Kalimat berikut yang merupakan kalimat aktif intransitif (tidak membutuhkan objek) adalah...",
+                options: [
+                    "Ibu memasak rendang daging untuk acara keluarga.",
+                    "Kucing belang itu tidur pulas di atas sofa.",
+                    "Pak Guru menjelaskan materi teks laporan hasil observasi.",
+                    "Rina menyiram tanaman anggrek di halaman depan."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Perhatikan kalimat berikut: 'Jembatan gantung di desa itu hancur diterjang banjir bandang semalam.' Subjek dalam kalimat pasif tersebut adalah...",
+                options: [
+                    "Banjir bandang semalam",
+                    "Diterjang banjir bandang",
+                    "Jembatan gantung di desa itu",
+                    "Di desa itu"
+                ],
+                answer: 2
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: null,
+                question: "Kalimat di bawah ini yang menggunakan kata kerja pasif berimbuhan 'ter-' yang bermakna ketidaksengajaan adalah...",
+                options: [
+                    "Pintu gerbang sekolah terkunci rapat sejak pukul tujuh malam.",
+                    "Kaki Andi tersandung batu saat berlari mengejar bola di lapangan.",
+                    "Gunung Semeru terlihat sangat gagah dari kejauhan.",
+                    "Ia merupakan siswa terpandai di kelasnya tahun ini."
+                ],
+                answer: 1
+            },
+            {
+                topic: "Kalimat Aktif dan Pasif",
+                passage: "Panitia lomba literasi sekolah telah mengumumkan daftar pemenang melalui papan informasi pagi ini. Seluruh piala dan piagam penghargaan akan diserahkan langsung oleh kepala sekolah pada upacara bendera hari Senin mendatang.",
+                question: "Jenis kalimat pada kalimat pertama dan kalimat kedua kutipan paragraf di atas secara berurutan adalah...",
+                options: [
+                    "Kalimat pasif dan kalimat aktif",
+                    "Kalimat aktif dan kalimat pasif",
+                    "Keduanya merupakan kalimat aktif",
+                    "Keduanya merupakan kalimat pasif"
+                ],
+                answer: 1
+            }
+        ];
+
+        // =========================================================================
+        // 2. STATE APLIKASI & VARIABEL ANTI-KECURANGAN
+        // =========================================================================
+        let studentInfo = {
+            nama: "",
+            kelas: "",
+            absen: "",
+            sekolah: "",
+            tanggal: ""
+        };
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        let examActive = false;
+        let totalTimeSeconds = 135 * 60; // 2 jam 15 menit = 135 menit = 8100 detik
+        let remainingSeconds = totalTimeSeconds;
+        let timerInterval = null;
+        let startTimeStamp = null;
+
+        // Variabel Tracking Kecurangan
+        let cheatDetected = false;
+        let cheatReasons = [];
+        let longPressTimer = null;
+
+        // =========================================================================
+        // 3. INISIALISASI HALAMAN & KALENDER LOGIN DROPDOWN
+        // =========================================================================
+        window.onload = function () {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+            populateDateSelectors();
+            setupAntiCheatListeners();
+        };
+
+        function populateDateSelectors() {
+            const daySelect = document.getElementById('select-hari');
+            const yearSelect = document.getElementById('select-tahun');
+            const monthSelect = document.getElementById('select-bulan');
+
+            // Isi Tanggal 1 - 31
+            for (let d = 1; d <= 31; d++) {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d;
+                daySelect.appendChild(opt);
+            }
+
+            // Isi Tahun (2024 - 2030)
+            const currentYear = new Date().getFullYear();
+            for (let y = currentYear - 1; y <= currentYear + 3; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                yearSelect.appendChild(opt);
+            }
+
+            // Set default pilihan ke hari ini agar user tinggal menyesuaikan/memilih dari dropdown
+            const today = new Date();
+            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            daySelect.value = today.getDate();
+            monthSelect.value = months[today.getMonth()];
+            yearSelect.value = today.getFullYear();
+        }
+
+        // =========================================================================
+        // 4. SISTEM ANTI-KECURANGAN (DETEKSI PINDAH TAB & TEKAN LAMA / LONG PRESS)
+        // =========================================================================
+        function recordCheat(reason) {
+            if (!examActive) return;
+
+            cheatDetected = true;
+            if (!cheatReasons.includes(reason)) {
+                cheatReasons.push(reason);
+            }
+
+            // Tampilkan peringatan modal tegas tanpa menghentikan ujian, namun poin otomatis dikurangi 12
+            showModal(
+                "warning",
+                "Pelanggaran Terdeteksi!",
+                `Sistem mendeteksi aktivitas mencurigakan: "${reason}". Sesuai peraturan ujian, status kejujuran Anda tercatat melanggar dan skor akhir Anda akan dikurangi 12 poin.`,
+                `<button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm cursor-pointer">Saya Mengerti & Lanjutkan</button>`
+            );
+        }
+
+        function setupAntiCheatListeners() {
+            // 1. Deteksi keluar tab / minimize browser / pindah aplikasi
+            document.addEventListener("visibilitychange", function () {
+                if (document.hidden && examActive) {
+                    recordCheat("Keluar dari tab ujian atau berpindah ke aplikasi lain");
+                }
+            });
+
+            // 2. Deteksi kehilangan fokus jendela (misal split screen / buka floating window)
+            window.addEventListener("blur", function () {
+                if (examActive) {
+                    recordCheat("Meninggalkan jendela halaman ujian (kehilangan fokus layar)");
+                }
+            });
+
+            // 3. Blokir klik kanan / context menu (mencegah search Google lewat menu konteks)
+            document.addEventListener("contextmenu", function (e) {
+                if (examActive) {
+                    e.preventDefault();
+                    recordCheat("Menekan lama / membuka menu konteks pada area soal");
+                }
+            });
+
+            // 4. Deteksi tekan lama (Long Press > 650ms) pada layar sentuh HP/Tablet untuk menyalin/cari Google
+            const examArea = document.getElementById("exam-section");
+            examArea.addEventListener("touchstart", function (e) {
+                if (!examActive) return;
+                // Abaikan jika menekan tombol atau opsi jawaban
+                if (e.target.closest("button")) return;
+
+                longPressTimer = setTimeout(() => {
+                    recordCheat("Menekan lama (long-press) pada teks soal");
+                }, 750);
+            }, { passive: true });
+
+            examArea.addEventListener("touchend", function () {
+                clearTimeout(longPressTimer);
+            });
+
+            examArea.addEventListener("touchmove", function () {
+                clearTimeout(longPressTimer);
+            });
+
+            // 5. Deteksi copy / cut keyboard shortcut
+            document.addEventListener("copy", function (e) {
+                if (examActive) {
+                    e.preventDefault();
+                    recordCheat("Mencoba menyalin teks soal ujian");
+                }
+            });
+        }
+
+        // =========================================================================
+        // 5. MULAI UJIAN & TIMER 135 MENIT (2 JAM 15 MENIT)
+        // =========================================================================
+        document.getElementById("student-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById("input-nama").value.trim();
+            const kelas = document.getElementById("input-kelas").value.trim();
+            const absen = document.getElementById("input-absen").value.trim();
+            const sekolah = document.getElementById("input-sekolah").value.trim();
+            const hari = document.getElementById("select-hari").value;
+            const bulan = document.getElementById("select-bulan").value;
+            const tahun = document.getElementById("select-tahun").value;
+
+            if (!nama || !kelas || !absen || !sekolah || !hari || !bulan || !tahun) {
+                showModal(
+                    "info",
+                    "Data Belum Lengkap",
+                    "Harap isi seluruh kolom identitas dan pilih tanggal ujian terlebih dahulu.",
+                    `<button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm cursor-pointer">Tutup</button>`
+                );
+                return;
+            }
+
+            studentInfo = {
+                nama,
+                kelas,
+                absen,
+                sekolah,
+                tanggal: `${hari} ${bulan} ${tahun}`
+            };
+
+            // Set tampilan identitas di halaman ujian
+            const initials = nama.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+            document.getElementById("avatar-initials").textContent = initials || "S";
+            document.getElementById("display-student-name").textContent = `${studentInfo.nama} (Absen ${studentInfo.absen})`;
+            document.getElementById("display-student-meta").textContent = `Kelas ${studentInfo.kelas} • ${studentInfo.sekolah}`;
+
+            // Beralih ke tampilan ujian
+            document.getElementById("login-section").classList.add("hidden");
+            document.getElementById("exam-section").classList.remove("hidden");
+            document.getElementById("timer-container").classList.remove("hidden");
+
+            examActive = true;
+            startTimeStamp = Date.now();
+            buildQuestionNavGrid();
+            renderQuestion(0);
+            startTimer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                remainingSeconds--;
+                updateTimerDisplay();
+
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam(true);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const hrs = Math.floor(remainingSeconds / 3600);
+            const mins = Math.floor((remainingSeconds % 3600) / 60);
+            const secs = remainingSeconds % 60;
+
+            const formatted =
+                String(hrs).padStart(2, '0') + ":" +
+                String(mins).padStart(2, '0') + ":" +
+                String(secs).padStart(2, '0');
+
+            const displayEl = document.getElementById("timer-display");
+            displayEl.textContent = formatted;
+
+            // Ubah warna jika waktu tersisa kurang dari 10 menit
+            if (remainingSeconds <= 600) {
+                displayEl.classList.remove("text-emerald-400");
+                displayEl.classList.add("text-rose-400");
+            }
+        }
+
+        // =========================================================================
+        // 6. NAVIGASI & RENDER SOAL (TANPA MENAMPILKAN BENAR/SALAH SAAT UJIAN)
+        // =========================================================================
+        function buildQuestionNavGrid() {
+            const container = document.getElementById("question-nav-buttons");
+            container.innerHTML = "";
+
+            questionsData.forEach((_, idx) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.id = `nav-btn-${idx}`;
+                btn.textContent = idx + 1;
+                btn.onclick = () => {
+                    renderQuestion(idx);
+                    toggleNavGrid(false);
+                };
+                btn.className = "h-9 rounded-lg text-xs font-bold border transition cursor-pointer bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200";
+                container.appendChild(btn);
+            });
+        }
+
+        function updateNavGridStyles() {
+            let answeredTotal = 0;
+            questionsData.forEach((_, idx) => {
+                const btn = document.getElementById(`nav-btn-${idx}`);
+                if (!btn) return;
+
+                const isAnswered = userAnswers[idx] !== null;
+                if (isAnswered) answeredTotal++;
+
+                btn.className = "h-9 rounded-lg text-xs font-bold border transition cursor-pointer ";
+                if (idx === currentQuestionIndex) {
+                    btn.className += "ring-2 ring-slate-900 ";
+                }
+
+                if (isAnswered) {
+                    btn.className += "bg-emerald-500 border-emerald-600 text-white";
+                } else {
+                    btn.className += "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200";
+                }
+            });
+
+            document.getElementById("answered-count").textContent = answeredTotal;
+        }
+
+        function toggleNavGrid(forceState) {
+            const panel = document.getElementById("nav-grid-panel");
+            if (typeof forceState === "boolean") {
+                panel.classList.toggle("hidden", !forceState);
+            } else {
+                panel.classList.toggle("hidden");
+            }
+        }
+
+        function renderQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questionsData[index];
+
+            document.getElementById("current-q-number").textContent = index + 1;
+            document.getElementById("current-q-topic").textContent = q.topic;
+
+            // Tampilkan teks bacaan literasi jika ada
+            const passageBox = document.getElementById("reading-passage-box");
+            const passageText = document.getElementById("reading-passage-text");
+            if (q.passage) {
+                passageBox.classList.remove("hidden");
+                passageText.textContent = q.passage;
+            } else {
+                passageBox.classList.add("hidden");
+                passageText.textContent = "";
+            }
+
+            document.getElementById("question-text").textContent = q.question;
+
+            // Render opsi jawaban A, B, C, D (Hanya menandai pilihan user, TIDAK memberitahu benar/salah)
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+            const letters = ["A", "B", "C", "D"];
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.onclick = () => selectOption(optIdx);
+
+                btn.className = `w-full text-left p-4 rounded-2xl border-2 transition flex items-start gap-3.5 cursor-pointer ${
+                    isSelected
+                        ? "border-emerald-600 bg-emerald-50/70 shadow-sm"
+                        : "border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50"
+                }`;
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 mt-0.5 transition ${
+                        isSelected ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-700"
+                    }">${letters[optIdx]}</span>
+                    <span class="text-sm sm:text-base font-medium text-slate-800 leading-snug">${optText}</span>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+
+            // Atur tombol Prev, Next, dan Finish
+            document.getElementById("btn-prev").disabled = index === 0;
+
+            if (index === questionsData.length - 1) {
+                document.getElementById("btn-next").classList.add("hidden");
+                document.getElementById("btn-finish").classList.remove("hidden");
+            } else {
+                document.getElementById("btn-next").classList.remove("hidden");
+                document.getElementById("btn-finish").classList.add("hidden");
+            }
+
+            updateNavGridStyles();
+        }
+
+        function selectOption(optIdx) {
+            userAnswers[currentQuestionIndex] = optIdx;
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                renderQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questionsData.length - 1) {
+                renderQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function confirmFinishExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            const msg = unanswered > 0
+                ? `Masih ada ${unanswered} soal yang belum Anda jawab. Apakah Anda yakin ingin mengakhiri ujian dan melihat hasilnya sekarang?`
+                : `Semua 45 soal telah Anda jawab. Apakah Anda yakin ingin mengumpulkan jawaban sekarang?`;
+
+            showModal(
+                "confirm",
+                "Konfirmasi Pengumpulan Ujian",
+                msg,
+                `
+                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-100 cursor-pointer">Periksa Lagi</button>
+                <button onclick="closeModal(); finishExam(false);" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm cursor-pointer">Ya, Kumpulkan</button>
+                `
+            );
+        }
+
+        // =========================================================================
+        // 7. PERHITUNGAN SKOR, HASIL AKHIR, WHATSAPP REPORT & PDF GENERATOR
+        // =========================================================================
+        function finishExam(isTimeUp) {
+            examActive = false;
+            clearInterval(timerInterval);
+
+            // Hitung durasi pengerjaan
+            const elapsedSeconds = Math.max(1, totalTimeSeconds - remainingSeconds);
+            const elapsedMins = Math.floor(elapsedSeconds / 60);
+            const elapsedSecs = elapsedSeconds % 60;
+            const durationText = `${elapsedMins} menit ${elapsedSecs} detik`;
+
+            // Hitung jawaban benar & salah
+            let correctCount = 0;
+            questionsData.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+            const wrongCount = questionsData.length - correctCount;
+
+            // Hitung Skor Murni (skala 100) & Skor Akhir setelah penalti kecurangan (-12)
+            const rawScore = Math.round((correctCount / questionsData.length) * 100);
+            const penalty = cheatDetected ? 12 : 0;
+            const finalScore = Math.max(0, rawScore - penalty);
+
+            // Sembunyikan layar ujian, tampilkan layar hasil
+            document.getElementById("exam-section").classList.add("hidden");
+            document.getElementById("timer-container").classList.add("hidden");
+            document.getElementById("result-section").classList.remove("hidden");
+
+            // Isi data ke Kartu Hasil / Sertifikat PDF
+            document.getElementById("res-final-score").textContent = finalScore;
+            document.getElementById("res-nama").textContent = studentInfo.nama;
+            document.getElementById("res-kelas-absen").textContent = `${studentInfo.kelas} / No. Absen ${studentInfo.absen}`;
+            document.getElementById("res-sekolah").textContent = studentInfo.sekolah;
+            document.getElementById("res-tanggal-waktu").textContent = `${studentInfo.tanggal} (${durationText})`;
+
+            document.getElementById("res-benar").textContent = `${correctCount} Soal`;
+            document.getElementById("res-salah").textContent = `${wrongCount} Soal`;
+            document.getElementById("res-skor-murni").textContent = `${rawScore} Poin`;
+
+            // Atur Status Kejujuran (Hijau jika Jujur, Merah jika Curang)
+            const honestyBox = document.getElementById("res-honesty-box");
+            const honestyBadge = document.getElementById("res-honesty-badge");
+            const honestyReason = document.getElementById("res-honesty-reason");
+
+            if (cheatDetected) {
+                honestyBox.className = "p-4 rounded-2xl border-2 border-rose-500 bg-rose-50/80";
+                honestyBadge.className = "text-xs sm:text-sm font-extrabold px-3.5 py-1 rounded-full bg-rose-600 text-white";
+                honestyBadge.textContent = "TERDETEKSI KECURANGAN (IYA - SKOR DIKURANGI 12 POIN)";
+                honestyReason.className = "text-xs sm:text-sm mt-2 leading-relaxed font-semibold text-rose-800";
+                honestyReason.textContent = `Alasan: Sistem mendeteksi pelanggaran aturan ujian berupa ${cheatReasons.join("; ")}. Oleh karena itu, nilai murni (${rawScore}) dikurangi 12 poin menjadi ${finalScore}.`;
+            } else {
+                honestyBox.className = "p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50/80";
+                honestyBadge.className = "text-xs sm:text-sm font-extrabold px-3.5 py-1 rounded-full bg-emerald-600 text-white";
+                honestyBadge.textContent = "ANDA JUJUR (BERSIH DARI PELANGGARAN)";
+                honestyReason.className = "text-xs sm:text-sm mt-2 leading-relaxed font-semibold text-emerald-800";
+                honestyReason.textContent = "Keterangan: Peserta mengerjakan seluruh 45 soal secara mandiri tanpa berpindah tab, membuka aplikasi lain, ataupun menekan lama teks soal selama ujian berlangsung.";
+            }
+
+            // Buat Format Teks WhatsApp dengan kode tebal (*) dan emoji menarik
+            const waStatusText = cheatDetected
+                ? `Iya (Terdeteksi Curang: ${cheatReasons.join(", ")} -> Skor dikurangi 12 poin)`
+                : `Tidak (Anda Jujur - Mengerjakan secara mandiri)`;
+
+            const waMessage =
+`📚 *LAPORAN HASIL LATIHAN UJIAN BAHASA INDONESIA KELAS 8* 📚
+_Disusun oleh Muhammad Naufal_
+
+👤 *Nama Lengkap:* ${studentInfo.nama}
+🏫 *Kelas / No. Absen:* ${studentInfo.kelas} / ${studentInfo.absen}
+🏢 *Asal Sekolah:* ${studentInfo.sekolah}
+📅 *Tanggal Ujian:* ${studentInfo.tanggal}
+⏱️ *Waktu Mengerjakan:* ${durationText} (dari batas 135 menit)
+
+📊 *Rincian Hasil:*
+✅ *Jawaban Benar:* ${correctCount} soal
+❌ *Jawaban Salah:* ${wrongCount} soal
+📝 *Skor Murni:* ${rawScore}
+🏆 *NILAI / SKOR AKHIR:* *${finalScore}*
+
+🛡️ *Kecurangan:* *${waStatusText}*
+
+✨ _Pesan Motivasi:_
+_"Teruslah belajar dengan giat dan jujur, karena ilmu yang berkah lahir dari proses yang bersih dan kerja kerasmu sendiri. Semangat meraih prestasi terbaik!"_`;
+
+            document.getElementById("wa-preview-text").value = waMessage;
+
+            // Render Pembahasan / Kunci Jawaban (Baru ditampilkan setelah selesai ujian!)
+            renderReviewSection();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderReviewSection() {
+            const container = document.getElementById("review-answers-list");
+            container.innerHTML = "";
+            const letters = ["A", "B", "C", "D"];
+
+            questionsData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.answer;
+
+                const card = document.createElement("div");
+                card.className = `p-4 sm:p-5 rounded-2xl border ${
+                    isCorrect ? "border-emerald-200 bg-emerald-50/30" : "border-rose-200 bg-rose-50/30"
+                }`;
+
+                const userAnsText = userAns !== null
+                    ? `${letters[userAns]}. ${q.options[userAns]}`
+                    : "Tidak dijawab";
+                const correctAnsText = `${letters[q.answer]}. ${q.options[q.answer]}`;
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <span class="text-xs font-extrabold text-slate-700">Soal #${idx + 1} • ${q.topic}</span>
+                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                            isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                        }">${isCorrect ? "Benar" : "Salah"}</span>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-900 mb-3">${q.question}</p>
+                    <div class="space-y-1 text-xs sm:text-sm">
+                        <div class="${isCorrect ? "text-emerald-700 font-semibold" : "text-rose-700 font-semibold"}">
+                            Jawaban Anda: ${userAnsText}
+                        </div>
+                        ${!isCorrect ? `<div class="text-emerald-700 font-bold">Kunci Jawaban Benar: ${correctAnsText}</div>` : ""}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // =========================================================================
+        // 8. FUNGSI SALIN WHATSAPP & DOWNLOAD BUKTI PDF
+        // =========================================================================
+        function copyWhatsAppReport() {
+            const textToCopy = document.getElementById("wa-preview-text").value;
+            const helper = document.getElementById("clipboard-helper");
+            helper.value = textToCopy;
+            helper.select();
+            helper.setSelectionRange(0, 99999);
+
+            try {
+                document.execCommand("copy");
+                showModal(
+                    "success",
+                    "Berhasil Disalin!",
+                    "Teks laporan hasil ujian beserta format tebal WhatsApp telah disalin ke papan klip. Silakan tempel (paste) langsung di chat WhatsApp!",
+                    `<button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm cursor-pointer">Oke, Siap!</button>`
+                );
+            } catch (err) {
+                showModal(
+                    "info",
+                    "Salin Manual",
+                    "Silakan salin teks secara manual pada kotak pratinjau laporan WhatsApp di bawah tombol.",
+                    `<button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm cursor-pointer">Tutup</button>`
+                );
+            }
+        }
+
+        function downloadPDFProof() {
+            const element = document.getElementById("pdf-certificate-area");
+            const safeName = studentInfo.nama.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            const fileName = `Bukti_Ujian_BIndo8_${safeName}.pdf`;
+
+            const opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     fileName,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // =========================================================================
+        // 9. HELPER MODAL UI
+        // =========================================================================
+        function showModal(type, title, message, actionsHtml) {
+            const modal = document.getElementById("custom-modal");
+            const iconBox = document.getElementById("modal-icon");
+            const titleEl = document.getElementById("modal-title");
+            const msgEl = document.getElementById("modal-message");
+            const actionsEl = document.getElementById("modal-actions");
+
+            if (type === "warning") {
+                iconBox.className = "w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4";
+                iconBox.innerHTML = `<i data-lucide="alert-triangle" class="w-6 h-6"></i>`;
+            } else if (type === "success") {
+                iconBox.className = "w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4";
+                iconBox.innerHTML = `<i data-lucide="check-circle-2" class="w-6 h-6"></i>`;
+            } else {
+                iconBox.className = "w-12 h-12 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center mx-auto mb-4";
+                iconBox.innerHTML = `<i data-lucide="info" class="w-6 h-6"></i>`;
+            }
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            actionsEl.innerHTML = actionsHtml;
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("custom-modal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+    </script>
+</body>
+</html>
+
+```
